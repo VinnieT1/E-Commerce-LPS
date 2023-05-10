@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Carrinho{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="carrinho">
+    <div class="titulo-carrinho">
+      <img src="{% static 'images/carrop.png' %}" alt="" width="34px" height="34px" />
+      <h2>Meu carrinho</h2>
+    </div>
+
+    <div class="carrinho-geral">
+      <div class="carrinho-esquerda">
+        {% if items %}
+            {% for item in items %}
+                <div class="produto-carrinho">
+                    <img src="{{ item.product.image.url }}" alt="" />
+                    <p>{{ item.product.title }}</p>
+                    <p>Preço: R$ {{ item.product.price }}</p>
+                    <p>Total: R$ {{ item.get_total }}</p>
+                    <div class="quantidade">
+                        <button data-product="{{item.product.id}}" data-action="remove" class="update-cart">-</button>
+                        <h4>{{ item.quantity }}</h4>
+                        <button data-product="{{item.product.id}}" data-action="add" class="update-cart">+</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>Vazio</h4>
+        {% endif %}
+      </div>
+
+      <div class="carrinho-direita">
+        <div class="checkout">
+          <h3>Checkout</h3>
+          <div class="shipping-form">
+            <label for="payment">Escolha o pagamento:</label>
+            <select name="payment" id="payment">
+              <option value="credit">Crédito</option>
+              <option value="bank-bill">Boleto</option>
+            </select>
+            <form id="bank-bill" class="zero">{{bank_bill}}</form>
+            <form id="credit-card">{{credit_card_form.as_p}}</form>
+            <label for="adress">Endereço: </label> <input type="text" />
+            <label for="adress">Cidade: </label> <input type="text" />
+            <label for="adress">Estado: </label> <input type="text" />
+            <label for="adress">CEP: </label> <input type="text" />
+          </div>
+        </div>
+
+        <div class="resumo">
+          <div class="carrinho-d-cima">
+            <h3>Resumo</h3>
+            <p>Total: <strong>R$ {{ order.get_cart_total }}</strong></p>
+          </div>
+          <a href="{% url 'purchase_complete' %}" class="finalizar-pedido">Finalizar pedido</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block script %} <script type="text/javascript" src="{% static 'js/select.js' %}"></script> {% endblock %}

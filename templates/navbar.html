@@ -1,0 +1,52 @@
+{% load static %}
+
+<header class="header">
+    <div class="container">
+      <a class="logo" href="{% url 'home' %}">{{neutral_name}}<span>{{highlighted_name}}</span></a>
+      <img
+        id="mobile-cta"
+        class="mobile-menu"
+        src="{% static 'images/menu.png' %}"
+        alt="Open Navigation"
+        width="21"
+        height="21"
+      />
+      <nav>
+        <img
+          id="mobile-exit"
+          class="mobile-menu-exit"
+          src="{% static 'images/close.png' %}"
+          alt="Close Navigation"
+          width="17"
+        />
+        <ul class="primary-nav nav-links">
+          <li><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
+          <li><a class="nav-link" href="{% url 'products' %}">Produtos</a></li>
+          <li><a class="nav-link" href="#testimonials">Avaliações</a></li>
+          <li><a class="contact nav-link" href="#contact">Contato</a></li>
+        </ul>
+
+        <ul class="secondary-nav">
+          {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'cart' %}"
+              ><img
+                src="{% static 'images/carro1.png' %}"
+                class="nav-link imgcart"
+                alt=""
+                width="28"
+                height="28"
+            /></a>
+            <li class="go-premium-cta">
+                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+            </li>
+          </li>
+          {% else %}
+          <li class="go-premium-cta">
+            <a class="nav-link open-modal" href="#">Cadastre-se</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>

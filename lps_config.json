@@ -1,0 +1,13 @@
+{
+    "neutral_name":"Tech",
+    "highlighted_name":"Pulse",
+    "products_enabled": {
+        "GPU": false,
+        "CPU": true,
+        "PC": true
+    },
+    "payment_methods": {
+        "credit": true,
+        "bank_bill": true
+    }
+}
